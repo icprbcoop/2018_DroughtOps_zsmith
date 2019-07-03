@@ -1,0 +1,45 @@
+#
+# This is the server logic of a Shiny web application. You can run the
+# application by clicking 'Run App' above.
+#
+# 
+#
+#    
+#
+#
+shinyServer(function(input, output, session) {
+  #----------------------------------------------------------------------------
+  # Automatically stop session once browser window is closed.
+  # Appears to work but when editing the ui.R errors will beging to appear in
+  # to console.
+  session$onSessionEnded(stopApp)
+  #----------------------------------------------------------------------------
+  source("server/dates_server.R", local = TRUE)
+# This allowed the user to select units of cfs or mgd for graphs:
+#  source("server/flow_units_server.R", local = TRUE)
+  y_units <- "cfs"
+  source("server/import_server.R", local = TRUE)
+  #----------------------------------------------------------------------------
+  # TAB 1
+  # Situational Awareness (sa)
+  #----------------------------------------------------------------------------
+  source("server/sa_server.R", local = TRUE)
+  #----------------------------------------------------------------------------
+  # TAB 2
+  # One-Day Operations (odo)
+  #----------------------------------------------------------------------------
+  source("server/odo_server.R", local = TRUE)
+  #----------------------------------------------------------------------------
+  # TAB 3
+  # North Branch Release (nbr)
+  #----------------------------------------------------------------------------
+  source("server/nbr_server.R", local = TRUE)
+  #----------------------------------------------------------------------------
+  # TAB 4
+  # Demand Time Series (dts)
+  #----------------------------------------------------------------------------
+  source("server/dts_server.R", local = TRUE)
+  #----------------------------------------------------------------------------
+#  lapply(c("sa", "odo", "nbr", "dts"),
+#         function(x) outputOptions(output, x, suspendWhenHidden = FALSE))
+})
